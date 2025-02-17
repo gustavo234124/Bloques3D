@@ -4,8 +4,8 @@ const ctx = canvas.getContext('2d');
 const block = document.getElementById('block');
 
 // Ajustar tamaño del canvas
-canvas.width = 640;
-canvas.height = 480;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 // Acceder a la cámara del usuario
 navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
