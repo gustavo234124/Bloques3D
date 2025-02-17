@@ -3,13 +3,16 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const block = document.getElementById('block');
 
-// Ajustar tamaño del canvas
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// Función para ajustar el tamaño del canvas al tamaño del video
+const adjustCanvasSize = () => {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+};
 
 // Acceder a la cámara del usuario
 navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
   video.srcObject = stream;
+  video.addEventListener('loadedmetadata', adjustCanvasSize);
 });
 
 // Inicializar MediaPipe Hands
@@ -59,5 +62,9 @@ const processVideo = async () => {
 
 // se espera que el  video cargue y empezar a procesar
 video.addEventListener('loadeddata', () => {
+  adjustCanvasSize();
   processVideo();
 });
+
+// Ajustar el tamaño del canvas cuando la ventana se redimensiona
+window.addEventListener('resize', adjustCanvasSize);
